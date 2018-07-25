@@ -1,17 +1,14 @@
 // Rover Object Goes Here
 var rover = {
-  direction: ["N", "S", "E", "W"]
+  direction: ["N", "S", "E", "W"],
+  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
 // The rover’s default direction will be "N" (north).
 // var direction = rover.direction["N"]; => not needed, as switch statement already works with "default value"
 
 // turn rover in the appropriate direction based on its current direction.
-// Begin with a switch statement. Based on which function is being called, turn the rover in the correct direction based on its current direction.
-// the console.log() to see which direction your rover is currently facing.
-
-// ======================
-
 // functions receive a rover object as an argument
 function turnLeft(rover){
   console.log("turnLeft was called!");
@@ -59,6 +56,33 @@ function turnRight(rover){
   }
 }
 
+// In order to move the rover around, we have to keep track of the rover’s position.
+// Positions are be represented as a pair of coordinates, x and y. Their default values will both be 0.
+
+var position = [rover.x[0], rover.y[0]];
+console.log(position)
+
+// Move forward
+// If Rover faces West and moves forward, decrease x by 1
+// If Rover faces North and moves forward, decrease y by 1
+// If Rover faces South and moves forward, increase y by 1
+// If Rover faces East and moves forward, increase x by 1
+
 function moveForward(rover){
   console.log("moveForward was called")
+
+  if (rover.direction === "W") {
+    position[0] = position[0]-1
+    console.log(position)
+  } else if (rover.direction === "N") {
+    position[1] = position[1]-1
+    console.log(position)
+  } else if (rover.direction === "S") {
+    position[1] = position[1]+1
+    console.log(position)
+  } else {
+    position[0] = position[0]+1
+    console.log(position)
+  }
+
 }
