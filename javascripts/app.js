@@ -1,15 +1,15 @@
-// Rover Object Goes Here
+// Rover Object
 var rover = {
   direction: ["N", "S", "E", "W"],
   x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
-// The rover’s default direction will be "N" (north).
+// Rover’s default direction: "N" (North).
 // var direction = rover.direction["N"]; => not needed, as switch statement already works with "default value"
 
 // turn rover in the appropriate direction based on its current direction.
-// functions receive a rover object as an argument
+// functions turnLeft/turnRight receive a rover object as an argument
 function turnLeft(rover){
   console.log("turnLeft was called!");
 
@@ -84,5 +84,36 @@ function moveForward(rover){
     position[0] = position[0]+1
     console.log(position)
   }
-
 }
+
+// Create a function that receives a list of commands. 
+// These commands will be the first letter of either (f)orward, (r)ight, or (l)eft.
+// To test it, use the string: ‘rffrfflfrff’.
+
+// Approach
+// Use a loop to iterate over the string. 
+// Inside of this loop, write a switch or if statement to call the correct function. 
+// For instance, if the letter is f, you’re going to want to call the goForward function.
+
+s = "";
+
+function commands(s){
+  console.log("commands was called!")
+  console.log(s)
+
+  for (var i = 0; i < s.length; i++){
+
+    if (s[i] === "f"){
+      moveForward(rover)
+    } else if (s[i] === "r") {
+      turnRight(rover)
+    } else if (s[i] === "l") {
+      turnLeft(rover)
+    } else {
+      console.log("Typo? This is not a right command! Use: 'f', 'r' or 'l'! ")
+    }
+  }
+}
+
+
+
