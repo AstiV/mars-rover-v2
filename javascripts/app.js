@@ -1,12 +1,17 @@
 // Rover Object
 var rover = {
+  // directions Rober can face
   direction: ["N", "S", "E", "W"],
-  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-  y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  // position of Rover
+  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
+  y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  // coordinates of the places Rover has been.
+  travelLog: []
 }
 
+// TODO 
 // Rover’s default direction: "N" (North).
-// var direction = rover.direction["N"]; => not needed, as switch statement already works with "default value"
+// rover.direction = ["N"];
 
 // turn rover in the appropriate direction based on its current direction.
 // functions turnLeft/turnRight receive a rover object as an argument
@@ -99,12 +104,15 @@ s = "";
 
 function commands(s){
   console.log("commands was called!")
-  console.log(s)
 
   for (var i = 0; i < s.length; i++){
 
     if (s[i] === "f"){
       moveForward(rover)
+      // Tracking
+      // After each move, push the coordinates of the previous space to the travelLog array. 
+      // After the rover has finished its moves, print out all of the spaces the rover has traveled over.
+      rover.travelLog.push([position[0], position[1]])
     } else if (s[i] === "r") {
       turnRight(rover)
     } else if (s[i] === "l") {
@@ -113,7 +121,11 @@ function commands(s){
       console.log("Typo? This is not a right command! Use: 'f', 'r' or 'l'! ")
     }
   }
+  console.log("TravelLog:",rover.travelLog)
 }
 
 
+// Questions:
+// 1. How to set Rover default position to North?
+// 2. How to log the coordinates of the Rover's previous position? In my code, first position (0, 0) is left out.
 
