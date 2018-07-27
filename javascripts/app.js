@@ -1,18 +1,16 @@
 // Rover Object
 var rover = {
-  // directions Rober can face
-  direction: ["N", "S", "E", "W"],
-  // position of Rover
-  x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
-  y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  // Rover's default direction: North
+  direction: "N",
+  // Rover's default position
+  // Positions are represented as a pair of coordinates, x and y. Their default values are 0.
+  position: [0, 0],
   // coordinates of the places Rover has been.
   travelLog: []
 }
+console.log(rover.direction[0]);
 
-// TODO 
-// Rover’s default direction: "N" (North).
-// rover.direction = ["N"];
-
+// Turn
 // turn rover in the appropriate direction based on its current direction.
 // functions turnLeft/turnRight receive a rover object as an argument
 function turnLeft(rover){
@@ -21,21 +19,18 @@ function turnLeft(rover){
   switch (rover.direction) {
     case "S":
       rover.direction = "E"
-      console.log("Rover is now facing East")
       break;
     case "E":
       rover.direction = "N"
-      console.log("Rover is now facing North")
       break;
     case "W":
       rover.direction = "S"
-      console.log("Rover is now facing South")
       break;
-    default:
+    case "N":
       rover.direction = "W"
-      console.log("Rover is now facing West")
       break;
   }
+  console.log("Rover is now facing:" + rover.direction);
 }
 
 function turnRight(rover){
@@ -43,29 +38,23 @@ function turnRight(rover){
 
   switch (rover.direction) {
     case "S":
-      rover.direction = "W"
-      console.log("Rover is now facing West")
+      rover.direction = "W";
       break;
     case "E":
-      rover.direction = "S"
-      console.log("Rover is now facing South")
+      rover.direction = "S";
       break;
     case "W":
-      rover.direction = "N"
-      console.log("Rover is now facing North")
+      rover.direction = "N";
       break;
-    default:
-      rover.direction = "E"
-      console.log("Rover is now facing East")
+    case "N":
+      rover.direction = "E";
       break;
   }
+  console.log("Rover is now facing: " + rover.direction);
 }
 
 // In order to move the rover around, we have to keep track of the rover’s position.
-// Positions are be represented as a pair of coordinates, x and y. Their default values will both be 0.
-
-var position = [rover.x[0], rover.y[0]];
-console.log(position)
+console.log("Actual position is: " + rover.position);
 
 // Move forward
 // If Rover faces West and moves forward, decrease x by 1
@@ -74,20 +63,20 @@ console.log(position)
 // If Rover faces East and moves forward, increase x by 1
 
 function moveForward(rover){
-  console.log("moveForward was called")
+  console.log("moveForward was called");
 
   if (rover.direction === "W") {
-    position[0] = position[0]-1
-    console.log(position)
+    rover.position[0] = rover.position[0]-1;
+    console.log(rover.position);
   } else if (rover.direction === "N") {
-    position[1] = position[1]-1
-    console.log(position)
+    rover.position[1] = rover.position[1]-1;
+    console.log(rover.position);
   } else if (rover.direction === "S") {
-    position[1] = position[1]+1
-    console.log(position)
+    rover.position[1] = rover.position[1]+1;
+    console.log(rover.position);
   } else {
-    position[0] = position[0]+1
-    console.log(position)
+    rover.position[0] = rover.position[0]+1;
+    console.log(rover.position);
   }
 }
 
@@ -103,29 +92,48 @@ function moveForward(rover){
 s = "";
 
 function commands(s){
-  console.log("commands was called!")
+  console.log("commands was called!");
 
   for (var i = 0; i < s.length; i++){
 
     if (s[i] === "f"){
-      moveForward(rover)
       // Tracking
       // After each move, push the coordinates of the previous space to the travelLog array. 
-      // After the rover has finished its moves, print out all of the spaces the rover has traveled over.
-      rover.travelLog.push([position[0], position[1]])
+      rover.travelLog.push([rover.position[0], rover.position[1]]);
+      moveForward(rover);
     } else if (s[i] === "r") {
-      turnRight(rover)
+      turnRight(rover);
     } else if (s[i] === "l") {
-      turnLeft(rover)
+      turnLeft(rover);
     } else {
-      console.log("Typo? This is not a right command! Use: 'f', 'r' or 'l'! ")
+      console.log("Typo? This is not a right command! Use: 'f', 'r' or 'l'! ");
     }
   }
-  console.log("TravelLog:",rover.travelLog)
+  // After the rover has finished its moves, print out all of the spaces the rover has traveled over.
+  console.log("TravelLog: ",rover.travelLog);
 }
 
+// TODO
+// Enforce Boundaries
+// Grid = 10x10
+// rover.x shall not be < 0 || > 9
+// rover.y shall not be < 0 || > 9
+// function boundary(rover){
 
-// Questions:
-// 1. How to set Rover default position to North?
-// 2. How to log the coordinates of the Rover's previous position? In my code, first position (0, 0) is left out.
+//   if (rover.position[0] < 0){
+//     console.log("You cannot move outside of the grid! Try again.")
+//     return false;
+//   } else if (rover.position[0] > 9){
+//     console.log("You cannot move outside of the grid! Try again.")
+//     return false;
+//   } else if (rover.position[1] < 0){
+//     console.log("You cannot move outside of the grid! Try again.")
+//     return false;
+//   } else if (rover.position[1] > 9){
+//     console.log("You cannot move outside of the grid! Try again.")
+//     return false;
+//   } else {
+//     return true;
+//   }
+// }
 
